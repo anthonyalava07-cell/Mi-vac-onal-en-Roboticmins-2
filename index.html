@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi vacíonal en Roboticmins</title>
+<title> Mi vacacíonal en Roboticmins</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --coral:#FF6B6B;
-    --yellow:#FFD166;
-    --sky:#4CC9F0;
-    --teal:#14213D;
-    --cream:#F5F9FF;
+    --coral:#FF6F59;
+    --yellow:#FFC857;
+    --sky:#4FB0C6;
+    --teal:#0F3D3E;
+    --cream:#FFF8ED;
     --chrome:#B8C4C2;
-    --ink:#172033;
-}
+    --ink:#12312E;
+  }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
@@ -69,7 +69,7 @@
     animation:spin 18s linear infinite;
   }
   .stamp-ring::before{
-    content:'★ RUTA ROBÓTICA ★';
+    content:'❤️❤️❤️';
     position:absolute;
     width:100%;height:100%;
     font-family:'Space Mono',monospace;
@@ -215,65 +215,7 @@
     color:var(--ink);
   }
   .polaroid figcaption b{color:var(--coral);}
-
-  /* ---------- video ---------- */
-  .video-frame{
-    border-radius:20px;
-    overflow:hidden;
-    border:3px solid var(--ink);
-    box-shadow:8px 8px 0 var(--sky);
-    aspect-ratio:16/9;
-  }
-  .video-frame iframe{width:100%;height:100%;border:0;display:block;}
-  .video-caption{
-    margin-top:16px;
-    font-size:.95rem;
-    color:var(--ink);
-    opacity:.85;
-  }
-
-  /* ---------- audio ---------- */
-  .player{
-    background:var(--teal);
-    color:var(--cream);
-    border-radius:22px;
-    padding:28px 26px;
-    display:flex;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
-  }
-  .play-btn{
-    width:64px;height:64px;
-    border-radius:50%;
-    border:none;
-    background:var(--coral);
-    color:#fff;
-    font-size:1.4rem;
-    cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    flex:none;
-    transition:transform .15s ease;
-  }
-  .play-btn:hover{transform:scale(1.08);}
-  .player-info{flex:1; min-width:180px;}
-  .player-info .title{font-family:'Fredoka',sans-serif; font-size:1.05rem;}
-  .player-info .sub{font-family:'Space Mono',monospace; font-size:.72rem; opacity:.75; margin-top:4px;}
-  .bars{display:flex; align-items:flex-end; gap:4px; height:32px; flex:none;}
-  .bars span{
-    width:4px;
-    background:var(--yellow);
-    border-radius:2px;
-    height:6px;
-    transition:height .12s ease;
-  }
-  .audio-note{
-    margin-top:14px;
-    font-size:.85rem;
-    color:var(--ink);
-    opacity:.75;
-  }
-
+  
   /* ---------- info adicional ---------- */
   .data-grid{
     display:grid;
@@ -349,7 +291,7 @@
 <section class="hero">
   <div class="stamp-ring"></div>
   <div class="bot">🤖</div>
-  <h1>Mi vacíonal en <br><span>Roboticmins</span></h1>
+  <h1>Mi vacacíonal en <br><span>Roboticmins</span></h1>
   <p class="tag"> <strong></strong> Una aventura robótica llena de creatividad, tecnología y nuevos descubrimientos.</p>
   <div class="passport-no mono">PASAPORTE Nº RB-2026 · SOL 001</div>
   <div class="scroll-cue">
@@ -364,9 +306,7 @@
     <p class="eyebrow">Presentación</p>
     <h2 class="section-title">BIENVENIDOS</h2>
     <div class="intro-card" style="position:relative;">
-      <p>Nuestra página web, un espacio creado con dedicación y creatividad donde la tecnología se encuentra con nuestras ideas para presentar cada proyecto,.</p>
-      <p>Imagen y detalle de una manera diferente, dinámica y especial,.</p>
-      <p>Demostrando que detrás de cada trabajo existe esfuerzo, aprendizaje y el deseo de seguir creciendo.</p>
+      <p>Nuestra página web, es un espacio creado con dedicación y creatividad donde la tecnología se encuentra con nuestras ideas para presentar cada proyecto,con una Imagen y detalle de una manera diferente, dinámica y especial,Demostrando que detrás de cada trabajo existe esfuerzo, aprendizaje y el deseo de seguir creciendo.</p>
       <div class="route-chips">
       </div>
     </div>
@@ -457,8 +397,10 @@
 <section class="cta">
   <div class="wrap reveal" style="padding-bottom:0;">
     <h2>¿Listo para tu propia aventura robótica?</h2>
-    <p>Conoce a los robots reales que inspiraron el viaje de Nova y descubre lo que la robótica puede hacer.</p>
-    <a class="cta-btn" href="https://www.bostondynamics.com" target="_blank" rel="noopener">Descubre robots reales →</a>
+    <figure class="polaroid">
+    <img src="imagenes/foto9.jpg" alt="Foto 9">
+    <figcaption><b>Foto 9 —</b> Una aventura inolvidable.</figcaption>
+  </figure>
   </div>
 </section>
 
