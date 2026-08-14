@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi vacíonal en Roboticmins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#FF6F59;
+    --yellow:#FFC857;
+    --sky:#4FB0C6;
+    --teal:#0F3D3E;
+    --cream:#FFF8ED;
+    --chrome:#B8C4C2;
+    --ink:#12312E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fredoka',sans-serif; margin:0;}
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;}
+
+  /* decorative dotted flight path down the page */
+  .flightpath{
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:2px;
+    border-left:3px dashed rgba(15,61,62,0.18);
+    transform:translateX(-50%);
+    z-index:0;
+  }
+  @media(max-width:720px){.flightpath{left:24px;}}
+
+  section{position:relative; z-index:1;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,200,87,0.35), transparent 45%),
+      radial-gradient(circle at 80% 75%, rgba(79,176,198,0.35), transparent 50%),
+      var(--teal);
+    color:var(--cream);
+    overflow:hidden;
+  }
+  .stamp-ring{
+    width:120px;height:120px;border-radius:50%;
+    border:3px solid var(--yellow);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:28px;
+    position:relative;
+    animation:spin 18s linear infinite;
+  }
+  .stamp-ring::before{
+    content:'★ RUTA ROBÓTICA ★';
+    position:absolute;
+    width:100%;height:100%;
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    letter-spacing:2px;
+    color:var(--yellow);
+  }
+  .stamp-ring svg{animation:spin 0s;}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  .hero .bot{font-size:54px; animation:float 3.5s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .hero h1{
+    font-size:clamp(2.4rem,7vw,4.6rem);
+    line-height:1.02;
+    letter-spacing:-1px;
+    margin-top:18px;
+  }
+  .hero h1 span{color:var(--coral);}
+  .hero p.tag{
+    max-width:520px;
+    font-size:1.15rem;
+    margin-top:16px;
+    color:var(--chrome);
+  }
+  .passport-no{
+    margin-top:34px;
+    font-family:'Space Mono',monospace;
+    font-size:.85rem;
+    letter-spacing:3px;
+    background:rgba(255,248,237,0.08);
+    border:1px solid rgba(255,248,237,0.35);
+    padding:10px 18px;
+    border-radius:40px;
+  }
+  .scroll-cue{
+    margin-top:46px;
+    font-size:.85rem;
+    color:var(--chrome);
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .scroll-cue .arrow{animation:bounce 1.6s infinite;}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+  /* ---------- generic section wrapper ---------- */
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:90px 24px;
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:.8rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--coral);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:34px;height:2px;background:var(--coral);
+  }
+  .section-title{
+    font-size:clamp(1.8rem,4.5vw,2.6rem);
+    margin-bottom:22px;
+  }
+  .stamp-mark{
+    position:absolute;
+    top:-18px;
+    right:6px;
+    width:86px;height:86px;
+    border:3px solid var(--sky);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    transform:rotate(-14deg);
+    color:var(--sky);
+    font-family:'Space Mono',monospace;
+    font-size:.65rem;
+    text-align:center;
+    line-height:1.2;
+    opacity:0;
+    transition:opacity .6s ease, transform .6s ease;
+    background:var(--cream);
+  }
+  .stamp-mark.show{opacity:1; transform:rotate(-10deg);}
+  @media(max-width:720px){.stamp-mark{display:none;}}
+
+  /* ---------- presentación ---------- */
+  .intro-card{
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:22px;
+    padding:34px;
+    box-shadow:8px 8px 0 var(--coral);
+    position:relative;
+  }
+  .intro-card p{font-size:1.08rem; line-height:1.7; margin:0 0 14px;}
+  .intro-card p:last-child{margin-bottom:0;}
+  .route-chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;}
+  .chip{
+    font-family:'Space Mono',monospace;
+    font-size:.78rem;
+    background:var(--teal);
+    color:var(--cream);
+    padding:8px 14px;
+    border-radius:20px;
+  }
+
+  /* ---------- galería ---------- */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+  }
+  @media(max-width:600px){.gallery{grid-template-columns:1fr;}}
+  .polaroid{
+    background:#fff;
+    border-radius:14px;
+    padding:12px 12px 18px;
+    box-shadow:0 10px 24px rgba(15,61,62,0.15);
+    transform:rotate(var(--r,0deg));
+    transition:transform .3s ease;
+  }
+  .polaroid:hover{transform:rotate(0deg) scale(1.02);}
+  .polaroid:nth-child(1){--r:-3deg;}
+  .polaroid:nth-child(2){--r:2deg;}
+  .polaroid:nth-child(3){--r:2deg;}
+  .polaroid:nth-child(4){--r:-2deg;}
+  .polaroid img{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border-radius:6px;
+    filter:saturate(1.15) contrast(1.05);
+    display:block;
+  }
+  .polaroid figcaption{
+    font-family:'Space Mono',monospace;
+    font-size:.78rem;
+    margin-top:10px;
+    color:var(--ink);
+  }
+  .polaroid figcaption b{color:var(--coral);}
+
+  /* ---------- video ---------- */
+  .video-frame{
+    border-radius:20px;
+    overflow:hidden;
+    border:3px solid var(--ink);
+    box-shadow:8px 8px 0 var(--sky);
+    aspect-ratio:16/9;
+  }
+  .video-frame iframe{width:100%;height:100%;border:0;display:block;}
+  .video-caption{
+    margin-top:16px;
+    font-size:.95rem;
+    color:var(--ink);
+    opacity:.85;
+  }
+
+  /* ---------- audio ---------- */
+  .player{
+    background:var(--teal);
+    color:var(--cream);
+    border-radius:22px;
+    padding:28px 26px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .play-btn{
+    width:64px;height:64px;
+    border-radius:50%;
+    border:none;
+    background:var(--coral);
+    color:#fff;
+    font-size:1.4rem;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+    transition:transform .15s ease;
+  }
+  .play-btn:hover{transform:scale(1.08);}
+  .player-info{flex:1; min-width:180px;}
+  .player-info .title{font-family:'Fredoka',sans-serif; font-size:1.05rem;}
+  .player-info .sub{font-family:'Space Mono',monospace; font-size:.72rem; opacity:.75; margin-top:4px;}
+  .bars{display:flex; align-items:flex-end; gap:4px; height:32px; flex:none;}
+  .bars span{
+    width:4px;
+    background:var(--yellow);
+    border-radius:2px;
+    height:6px;
+    transition:height .12s ease;
+  }
+  .audio-note{
+    margin-top:14px;
+    font-size:.85rem;
+    color:var(--ink);
+    opacity:.75;
+  }
+
+  /* ---------- info adicional ---------- */
+  .data-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:18px;
+  }
+  .data-card{
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+  }
+  .data-card .num{
+    font-family:'Fredoka',sans-serif;
+    font-size:2rem;
+    color:var(--coral);
+  }
+  .data-card .label{
+    font-family:'Space Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-top:6px;
+    opacity:.8;
+  }
+
+  /* ---------- cta final ---------- */
+  .cta{
+    text-align:center;
+    padding-bottom:130px;
+  }
+  .cta h2{font-size:clamp(1.6rem,4vw,2.2rem); margin-bottom:14px;}
+  .cta p{max-width:460px; margin:0 auto 30px; opacity:.85;}
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--coral);
+    color:#fff;
+    text-decoration:none;
+    font-family:'Fredoka',sans-serif;
+    font-size:1.05rem;
+    padding:16px 32px;
+    border-radius:40px;
+    box-shadow:0 10px 24px rgba(255,111,89,0.4);
+    transition:transform .15s ease;
+  }
+  .cta-btn:hover{transform:translateY(-3px);}
+
+  footer{
+    text-align:center;
+    padding:24px;
+    font-family:'Space Mono',monospace;
+    font-size:.72rem;
+    color:var(--ink);
+    opacity:.6;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.show{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="flightpath"></div>
+
+<!-- ================= INICIO ================= -->
+<section class="hero">
+  <div class="stamp-ring"></div>
+  <div class="bot">🤖</div>
+  <h1>Mi vacíonal en <br><span>Roboticmins</span></h1>
+  <p class="tag"> <strong></strong> Una aventura robótica llena de creatividad, tecnología y nuevos descubrimientos.</p>
+  <div class="passport-no mono">PASAPORTE Nº RB-2026 · SOL 001</div>
+  <div class="scroll-cue">
+    <span>desliza para viajar</span>
+    <span class="arrow">↓</span>
+  </div>
+</section>
+
+<!-- ================= PRESENTACIÓN ================= -->
+<section id="presentacion">
+  <div class="wrap reveal">
+    <p class="eyebrow">Presentación</p>
+    <h2 class="section-title">BIENVENIDOS</h2>
+    <div class="intro-card" style="position:relative;">
+      <p>Nuestra página web, un espacio creado con dedicación y creatividad donde la tecnología se encuentra con nuestras ideas para presentar cada proyecto,.</p>
+      <p>Imagen y detalle de una manera diferente, dinámica y especial,.</p>
+      <p>Demostrando que detrás de cada trabajo existe esfuerzo, aprendizaje y el deseo de seguir creciendo.</p>
+      <div class="route-chips">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================= GALERÍA ================= -->
+<section id="galeria">
+  <div class="wrap reveal">
+    <p class="eyebrow">Álbum de viaje</p>
+    <h2 class="section-title">Galería de postales</h2>
+
+    <div class="gallery">
+
+      <!-- AQUÍ VAN TUS IMÁGENES -->
+<div class="gallery">
+
+    <figure class="polaroid">
+        <img src="imagenes/imagenes1.jpeg" alt="Foto 1">
+        <figcaption>
+            <b>Foto 1</b> Una nueva experiencia.
+        </figcaption>
+    </figure>
+ 
+  <figure class="polaroid">
+    <img src="imagenes/imagenes(2).jpeg" alt="Foto 2">
+    <figcaption><b>Foto 2 —</b> Una nueva experiencia.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes/imagenes(3).jpeg" alt="Foto 3">
+    <figcaption><b>Foto 3 —</b> Explorando y aprendiendo.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes/imagenes(4).jpeg" alt="Foto 4">
+    <figcaption><b>Foto 4 —</b> Un momento para recordar.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="iimagenes/imagenes(5).jpeg" alt="Foto 5">
+    <figcaption><b>Foto 5 —</b> Compartiendo una gran aventura.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes/imagenes(6).jpeg" alt="Foto 6">
+    <figcaption><b>Foto 6 —</b> Descubriendo nuevos lugares.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes/imagenes(7).jpeg" alt="Foto 7">
+    <figcaption><b>Foto 7 —</b> Un día lleno de diversión.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes/imagenes(8).jpeg" alt="Foto 8">
+    <figcaption><b>Foto 8 —</b> Nuevos momentos compartidos.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes/imagenes(9).jpeg" alt="Foto 9">
+    <figcaption><b>Foto 9 —</b> Una aventura inolvidable.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (10).jpg" alt="Foto 10">
+    <figcaption><b>Foto 10 —</b> Un recuerdo de nuestro viaje.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (11).jpg" alt="Foto 11">
+    <figcaption><b>Foto 11 —</b> Momentos llenos de alegría.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (12).jpg" alt="Foto 12">
+    <figcaption><b>Foto 12 —</b> Una experiencia especial.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (13).jpg" alt="Foto 13">
+    <figcaption><b>Foto 13 —</b> Explorando nuevas experiencias.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (14).jpg" alt="Foto 14">
+    <figcaption><b>Foto 14 —</b> Aprendiendo y compartiendo.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (15).jpg" alt="Foto 15">
+    <figcaption><b>Foto 15 —</b> Un momento especial de la aventura.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (16).jpg" alt="Foto 16">
+    <figcaption><b>Foto 16 —</b> Disfrutando cada momento.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (17).jpg" alt="Foto 17">
+    <figcaption><b>Foto 17 —</b> Un recuerdo inolvidable.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (18).jpg" alt="Foto 18">
+    <figcaption><b>Foto 18 —</b> Una aventura para recordar.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (19).jpg" alt="Foto 19">
+    <figcaption><b>Foto 19 —</b> Compartiendo buenos momentos.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (20).jpg" alt="Foto 20">
+    <figcaption><b>Foto 20 —</b> Una experiencia increíble.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (21).jpg" alt="Foto 21">
+    <figcaption><b>Foto 21 —</b> Un recuerdo más del viaje.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (22).jpg" alt="Foto 22">
+    <figcaption><b>Foto 22 —</b> Momentos que quedan en la memoria.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (23).jpg" alt="Foto 23">
+    <figcaption><b>Foto 23 —</b> Cerrando una gran aventura.</figcaption>
+  </figure>
+
+  <figure class="polaroid">
+    <img src="imagenes  (24).jpg" alt="Foto 24">
+    <figcaption><b>Foto 24 —</b> Un último recuerdo para guardar.</figcaption>
+  </figure>
+
+</section>
+
+
+
+  
+<!-- ================= INFO ADICIONAL ================= -->
+<section id="info">
+  <div class="wrap reveal">
+    <p class="eyebrow">Información adicional</p>
+    <h2 class="section-title">Datos del viaje</h2>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="num">4</div>
+        <div class="label">Destinos visitados</div>
+      </div>
+      <div class="data-card">
+        <div class="num">24</div>
+        <div class="label">Fotos tomadas</div>
+      </div>
+      <div class="data-card">
+        <div class="num">73%</div>
+        <div class="label">Batería restante</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA FINAL ================= -->
+<section class="cta">
+  <div class="wrap reveal" style="padding-bottom:0;">
+    <h2>¿Listo para tu propia aventura robótica?</h2>
+    <p>Conoce a los robots reales que inspiraron el viaje de Nova y descubre lo que la robótica puede hacer.</p>
+    <a class="cta-btn" href="https://www.bostondynamics.com" target="_blank" rel="noopener">Descubre robots reales →</a>
+  </div>
+</section>
+
+<footer>BITÁCORA DE NOVA · PROYECTO ESCOLAR · HECHO CON ♥ Y CIRCUITOS</footer>
+
+<script>
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const stampEls = document.querySelectorAll('.stamp-mark');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); }
+    });
+  },{threshold:0.2});
+  revealEls.forEach(el=>io.observe(el));
+  stampEls.forEach(el=>io.observe(el));
+
+  // audio player
+  const audioEl = document.getElementById('audioEl');
+  const playBtn = document.getElementById('playBtn');
+  const bars = document.querySelectorAll('#bars span');
+  let barTimer = null;
+
+  function animateBars(){
+    bars.forEach(b=>{ b.style.height = (6 + Math.random()*26) + 'px'; });
+  }
+  function stopBars(){
+    bars.forEach(b=>{ b.style.height = '6px'; });
+  }
+
+  playBtn.addEventListener('click', ()=>{
+    if(audioEl.paused){
+      audioEl.play();
+      playBtn.textContent = '❚❚';
+      barTimer = setInterval(animateBars, 120);
+    } else {
+      audioEl.pause();
+      playBtn.textContent = '▶';
+      clearInterval(barTimer);
+      stopBars();
+    }
+  });
+  audioEl.addEventListener('ended', ()=>{
+    playBtn.textContent = '▶';
+    clearInterval(barTimer);
+    stopBars();
+  });
+</script>
+
+</body>
+</html>
